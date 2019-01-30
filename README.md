@@ -1,1 +1,5 @@
-"# OS" 
+A programm to simulate the CPU scheduling
+1.FIFO
+2.SJF WITH PREEMPTIVE AND NONPREEMPTIVE APPROACH
+3.PRIORITY 
+4.ROUND ROBIN
