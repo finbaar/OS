@@ -12,6 +12,13 @@ class Process():
 
     def setPriority(self, nums):
         self.priority = nums
+    
+    def decreaseBurstTime(self):
+        self.burstTime -= 1
+
+    def getChildProcess(self):
+        #generate a process with the same value but burst time is set to 1
+        return Process(self.name,1,self.arriveTime,self.priority)
 
     def getName(self):
         return self.name
@@ -49,5 +56,18 @@ def generateProcesses(nums, needPrioiry, burstRange):
             processList[i].setPriority(temp[i])
     
     return processList
+
+
+def slicesProcesses(process):
+    """slicing a processes into a serial of processes which has the same nema
+        priority and arrive time, but the burst time would always be 1"""
+    slicedProcesses = []
+
+    while process.getBurstTime != 0:
+        process.decreaseBurstTime()
+        slicedProcesses.append(process.getChildProcess())
+        
+    return slicedProcesses
+    
 
    

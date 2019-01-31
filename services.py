@@ -1,14 +1,15 @@
 from block import ExecutedBlock
 
-def FCFS(readyQueue):
+def FCFS(processPoo):
     """a function that simulates the FCFS services
-       accept a readyQueue and return an exectution record
+       accept a processPool
+ and return an exectution record
        the exectution record is just like a Gantt Chart"""
     #count the current time
     timer = 0
 
     executionRecord = []
-    for process in readyQueue:
+    for process in processPool:
         #execute the first process in the queue, and put it in the execution record,increase the timer
         executionRecord.append(ExecutedBlock(process, timer, timer + process.getBurstTime()))
         timer += process.getBurstTime()
@@ -16,23 +17,34 @@ def FCFS(readyQueue):
     return executionRecord
 
 
-def SJF_Preemptive(readyQueue):
+def SJF_Preemptive(processPool):
     """a function that simulates the SJF services with preemptive
-       accept a readyQueue and return an exectution record
+       accept a processPool
+ and return an exectution record
        the exectution record is just like a Gantt Chart"""
-    pass
+    timer = 0
+    
+    #the process arrives will be added to ready queue
+    readyQueue = []
+    while processPool or readyQueue:
+        if processPool:
+            currentProcess = processPool.pop(0)
+            for slicedProcess in currentProcess.
 
 
-def Priority_Preemptive(readyQueue):
+
+
+def Priority_Preemptive(processPool):
     """a function that simulates the Priority services with preemptive
-    accept a readyQueue and return an exectution record
+    accept a processPool and return an exectution record
     the exectution record is just like a Gantt Chart"""
     pass
 
 
-def RoundRobin(readyQueue):
+def RoundRobin(processPool):
     """a function that simulates the Round Robin services
-       accept a readyQueue and return an exectution record
+       accept a processPool
+ and return an exectution record
        the exectution record is just like a Gantt Chart"""
     pass
 
@@ -44,16 +56,17 @@ def getkey(ob):
     return ob.getBurstTime()
 
 
-def SJF_Nonpreemptive(readyQueue):
+def SJF_Nonpreemptive(processPool):
     """a function that simulates the SJF services with nonpreemptive
-       accept a readyQueue and return an exectution record
+       accept a processPool
+ and return an exectution record
        the exectution record is just like a Gantt Chart"""
     timer = 0
     executionRecord = []
 
-    readyQueue.sort(key=getkey)
+    processPool.sort(key=getkey)
 
-    for process in readyQueue:
+    for process in processPool:
         #execute the first process in the queue, and put it in the execution record,increase the timer
         executionRecord.append(ExecutedBlock(process, timer, timer + process.getBurstTime()))
         timer += process.getBurstTime()
@@ -61,9 +74,9 @@ def SJF_Nonpreemptive(readyQueue):
     return executionRecord   
 
 
-def Priority_Nonpreemptive(readyQueue):
+def Priority_Nonpreemptive(processPool):
     """a function that simulates the Priority services with nonpreemptive
-    accept a readyQueue and return an exectution record
+    accept a processPool and return an exectution record
     the exectution record is just like a Gantt Chart"""
     #same as SJF_Nonpreemptive but sort the queue using priority
     pass
