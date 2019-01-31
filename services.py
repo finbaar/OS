@@ -38,6 +38,7 @@ def SJF_Preemptive(processPool):
 
     #the process arrives will be added to ready queue
     readyQueue = []
+    decreaseTime = 1
     while processPool or readyQueue:
         if processPool:
             readyQueue.append(processPool.pop(0))
@@ -49,7 +50,7 @@ def SJF_Preemptive(processPool):
         currentRecord = ExecutedBlock(currentProcess.getChildProcess(),timer, timer +1)    
         executionRecord.append(currentRecord)
         #decrease the burst time 
-        currentProcess.decreaseBurstTime()
+        currentProcess.decreaseBurstTime(decreaseTime)
         timer += 1
         #filt the process whose burst tiem is 0
         while readyQueue and readyQueue[0].getBurstTime() == 0:
@@ -67,6 +68,7 @@ def Priority_Preemptive(processPool):
 
     #the process arrives will be added to ready queue
     readyQueue = []
+    decreaseTime = 1
     while processPool or readyQueue:
         if processPool:
             readyQueue.append(processPool.pop(0))
@@ -78,14 +80,13 @@ def Priority_Preemptive(processPool):
         currentRecord = ExecutedBlock(currentProcess.getChildProcess(),timer, timer +1)    
         executionRecord.append(currentRecord)
         #decrease the burst time 
-        currentProcess.decreaseBurstTime()
+        currentProcess.decreaseBurstTime(decreaseTime)
         timer += 1
         #filt the process whose burst tiem is 0
         while readyQueue and readyQueue[0].getBurstTime() == 0:
             del readyQueue[0]
 
-    #return mergeIdenticalBlock(executionRecord)
-    return executionRecord
+    return mergeIdenticalBlock(executionRecord)
 
 
 def RoundRobin(processPool, timeQuantum):
@@ -93,8 +94,43 @@ def RoundRobin(processPool, timeQuantum):
         accept a processPool
         and return an exectution record
         the exectution record is just like a Gantt Chart"""
-    pass
+    timer = 0
+    executionRecord = []
 
+    readyQueue = processPool
+    decreaseTime = timeQuantum
+
+    #pointer refer to which process is currently pointing at
+    pointer = 0
+    while readyQueue:
+        #check if there are any processes left the queue
+        queueSizeRemain = True
+
+        currentProcess = readyQueue[pointer]
+        currentBurstTime = currentProcess.getBurstTime()
+        actualBurstTime = min(currentBurstTime, decreaseTime)
+        childProcess = currentProcess.getChildProcess()
+        childProcess.setBurstTime(actualBurstTime)
+        currentRecord = ExecutedBlock(childProcess,timer,timer + actualBurstTime)
+        currentProcess.decreaseBurstTime(actualBurstTime)
+        timer += actualBurstTime
+        executionRecord.append(currentRecord)
+
+        while readyQueue and readyQueue[pointer].getBurstTime() == 0:
+            del readyQueue[pointer]
+            queueSizeRemain = False
+            break
+
+        #if the size changed, then current pointer will point to next process automaticlly
+        if queueSizeRemain:
+            pointer += 1
+
+        #if pointer points the end, the go back to the start
+        #there is an exception, that's the queue's size changed
+        if (pointer == len(readyQueue) and queueSizeRemain) or len(readyQueue) == 1:
+            pointer = 0
+
+    return executionRecord
 
 
 def SJF_Nonpreemptive(processPool):

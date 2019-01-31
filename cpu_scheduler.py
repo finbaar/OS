@@ -43,7 +43,7 @@ for item in theProcessPool:
     print(item)
 
 print('----')
-record = services.Priority_Preemptive(theProcessPool)
+record = services.RoundRobin(theProcessPool,4)
 for item in record:
     print(item.process.getName(),end=' ')
     print(item.startTime,end=' ')

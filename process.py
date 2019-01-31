@@ -12,9 +12,12 @@ class Process():
 
     def setPriority(self, nums):
         self.priority = nums
+
+    def setBurstTime(self, time):
+        self.burstTime = time
     
-    def decreaseBurstTime(self):
-        self.burstTime -= 1
+    def decreaseBurstTime(self,decreasedTime):
+        self.burstTime -= decreasedTime
 
     def getChildProcess(self):
         #generate a process with the same value but burst time is set to 1
