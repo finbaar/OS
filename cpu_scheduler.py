@@ -1,22 +1,6 @@
-from random import randint, sample
 from process import Process
+import process
 
-def generateProcesses(nums, needPrioiry, burstRange):
-    """randomly generate n processes without priority,
-       if priority is needed, the priority would be given randomly"""
-    processList = []
-
-    for i in range(nums):
-        processList.append(Process(str(chr(65+i)), randint(1,burstRange), i, 0))
-    
-    if needPrioiry:
-        #randomly chose number from the set
-        temp = sample(range(nums), nums)
-        #set each process's priority accordingly
-        for i in range(nums):
-            processList[i].setPriority(temp[i])
-    
-    return processList
 
 #ask the users for the type of services
 prompt = "1.FIFO\n2.Preemtive SJF\n3.Nonpreemtive SJF\n4.preemtive Priority\n5.Nonpreemtive priority\n6.Round Robin\n"
@@ -43,7 +27,7 @@ if isRandom == 'y' or isRandom == 'Y':
 
     #randomly generate the processes and put them into the ready queue
     burstRange = int(input("Please specify the CPU burst range from 0 to ?"))
-    theReadyQueue = generateProcesses(numberOfProcesses,requirePriority, burstRange)
+    theReadyQueue = process.generateProcesses(numberOfProcesses,requirePriority, burstRange)
 else:
     for i in range(numberOfProcesses):
         ProcessId = str(chr(65+i))
