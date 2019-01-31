@@ -1,6 +1,17 @@
-from block import ExecutedBlock
+from block import ExecutedBlock, mergeIdenticalBlock
+from process import slicesProcesses
 
-def FCFS(processPoo):
+
+
+def getBursTime(ob):
+    """sort the ready queue according to the burst time"""
+    return ob.getBurstTime()
+
+def getPriority(ob):
+    """sort the ready queue according to the priority"""
+    return ob.getPriority()
+
+def FCFS(processPool):
     """a function that simulates the FCFS services
        accept a processPool
  and return an exectution record
@@ -23,15 +34,28 @@ def SJF_Preemptive(processPool):
  and return an exectution record
        the exectution record is just like a Gantt Chart"""
     timer = 0
-    
+    executionRecord = []
+
     #the process arrives will be added to ready queue
     readyQueue = []
     while processPool or readyQueue:
         if processPool:
-            currentProcess = processPool.pop(0)
-            for slicedProcess in currentProcess.
+            readyQueue.append(processPool.pop(0))
 
+        readyQueue.sort(key=getBursTime)
 
+        #filt the process whose burst tiem is 0
+        while readyQueue[0].getBursTime() == 0:
+            del readyQueue[0]
+
+        currentProcess = readyQueue[0]
+        #add its chiled process into the record
+        currentRecord = ExecutedBlock(currentProcess.getChildProcess(),timer, timer +1)    
+        executionRecord.append(currentRecord)
+        #decrease the burst time 
+        currentProcess.decreaseBurstTime()
+    
+    return mergeIdenticalBlock(executionRecord)
 
 
 def Priority_Preemptive(processPool):
@@ -50,12 +74,6 @@ def RoundRobin(processPool):
 
 
 
-
-def getkey(ob):
-    """sort the ready queue according the burst time"""
-    return ob.getBurstTime()
-
-
 def SJF_Nonpreemptive(processPool):
     """a function that simulates the SJF services with nonpreemptive
        accept a processPool
@@ -64,7 +82,7 @@ def SJF_Nonpreemptive(processPool):
     timer = 0
     executionRecord = []
 
-    processPool.sort(key=getkey)
+    processPool.sort(key=getBursTime)
 
     for process in processPool:
         #execute the first process in the queue, and put it in the execution record,increase the timer

@@ -9,16 +9,16 @@ class ExecutedBlock():
 
 
 
-def mergeIdenticalBlock():
+def mergeIdenticalBlock(record):
     """merge the same block """
     pass
 
 
-def evaluteBlocks():
+def evaluteBlocks(record):
     """evalute the average time for the executed blocks"""
     pass
 
-def showBlock():
+def showBlock(record):
     """show the executed block in Gannt Char form"""
     pass
      
