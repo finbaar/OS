@@ -4,8 +4,8 @@ class ExecutedBlock():
     """a class represent the process which has been executed"""
     def __init__(self, process, startTime, finishTime):
         self.process = process
-        self.start = startTime
-        self.finish = finishTime
+        self.startTime = startTime
+        self.endTime = finishTime
 
 
 

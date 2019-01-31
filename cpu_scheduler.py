@@ -1,5 +1,6 @@
 from process import Process
 import process
+import services
 
 
 #ask the users for the type of services
@@ -11,7 +12,7 @@ numberOfProcesses = int(input("Please enter how many processes\n"))
 #ask for users wehter or not they would like to type those processes themselves
 isRandom = input("Enter y/Y to reandomly generat processes or other keys to continue\n")
 
-theReadyQueue = []
+theProcessPool = []
 
 #setting the parameters resulting from the users' choices
 if choiceOfAlgorithm == 4 or choiceOfAlgorithm == 5:
@@ -26,16 +27,24 @@ if choiceOfAlgorithm == 6:
 if isRandom == 'y' or isRandom == 'Y':
 
     #randomly generate the processes and put them into the ready queue
-    burstRange = int(input("Please specify the CPU burst range from 0 to ?"))
-    theReadyQueue = process.generateProcesses(numberOfProcesses,requirePriority, burstRange)
+    burstRange = int(input("Please specify the CPU burst range from 0 to ?\n"))
+    theProcessPool = process.generateProcesses(numberOfProcesses,requirePriority, burstRange)
 else:
     for i in range(numberOfProcesses):
         ProcessId = str(chr(65+i))
         print("Processes " + ProcessId + ": (burst time, arrive time, priority(if required) )")
         temp = input().split(",")
         if len(temp) == 2:
-            theReadyQueue.append(Process(ProcessId, int(temp[0]), int(temp[1])))
+            theProcessPool.append(Process(ProcessId, int(temp[0]), int(temp[1])))
         else:
-            theReadyQueue.append(Process(ProcessId, int(temp[0]), int(temp[1]), int(temp[2])))
+            theProcessPool.append(Process(ProcessId, int(temp[0]), int(temp[1]), int(temp[2])))
 
+for item in theProcessPool:
+    print(item)
 
+print('----')
+record = services.Priority_Preemptive(theProcessPool)
+for item in record:
+    print(item.process.getName(),end=' ')
+    print(item.startTime,end=' ')
+    print(item.endTime)
