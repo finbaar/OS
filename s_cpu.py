@@ -1,34 +1,13 @@
 from random import randint, sample
+from process import Process
 
-
-class Process():
-    """A class represents a process, including attributes like id, burst time,
-       arrive time and priority if provided"""
-
-    def __init__(self, name, burstTime, arriveTime, priority=0):
-        self.name = name
-        self.burstTime = burstTime
-        self.priority = priority
-        self.arriveTime = arriveTime
-
-    def setPriority(self, nums):
-        self.priority = nums
-
-    def __str__(self):
-        stringBuilder = "Process " + self.name + " " + str(self.burstTime)
-        stringBuilder += (" " + str(self.arriveTime) + " " + str(self.priority))
-        return stringBuilder
-
-
-
-def generateProcesses(nums, needPrioiry):
+def generateProcesses(nums, needPrioiry, burstRange):
     """randomly generate n processes without priority,
        if priority is needed, the priority would be given randomly"""
-
     processList = []
 
     for i in range(nums):
-        processList.append(Process(str(chr(65+i)), randint(0,20), i, 0))
+        processList.append(Process(str(chr(65+i)), randint(1,burstRange), i, 0))
     
     if needPrioiry:
         #randomly chose number from the set
@@ -39,23 +18,32 @@ def generateProcesses(nums, needPrioiry):
     
     return processList
 
-
-
+#ask the users for the type of services
 prompt = "1.FIFO\n2.Preemtive SJF\n3.Nonpreemtive SJF\n4.preemtive Priority\n5.Nonpreemtive priority\n6.Round Robin\n"
 choiceOfAlgorithm = int(input(prompt))
+
+#ask for how many processes will be in the ready queue
 numberOfProcesses = int(input("Please enter how many processes\n"))
+#ask for users wehter or not they would like to type those processes themselves
 isRandom = input("Enter y/Y to reandomly generat processes or other keys to continue\n")
 
 theReadyQueue = []
 
+#setting the parameters resulting from the users' choices
 if choiceOfAlgorithm == 4 or choiceOfAlgorithm == 5:
     requirePriority = True
 else:
     requirePriority = False
+if choiceOfAlgorithm == 6:
+    timeQuantum = int(input("Please spcify the time quantum"))
 
+
+#randomly generate those processes or colleting them from users
 if isRandom == 'y' or isRandom == 'Y':
+
     #randomly generate the processes and put them into the ready queue
-    theReadyQueue = generateProcesses(numberOfProcesses,requirePriority)
+    burstRange = int(input("Please specify the CPU burst range from 0 to ?"))
+    theReadyQueue = generateProcesses(numberOfProcesses,requirePriority, burstRange)
 else:
     for i in range(numberOfProcesses):
         ProcessId = str(chr(65+i))
@@ -67,5 +55,3 @@ else:
             theReadyQueue.append(Process(ProcessId, int(temp[0]), int(temp[1]), int(temp[2])))
 
 
-for item in theReadyQueue:
-    print(item)
