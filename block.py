@@ -53,14 +53,17 @@ def mergeIdenticalBlock(record):
 
 
 
-def calculateBlocks(record, numberOfProcess):
+def calculateBlocks(record, numberOfProcess,isPreemptive=True):
     """evalute the average time for the executed blocks"""
     #indicaing how long the interval is since exectued last time
     lastExecutionTime = {}
     waitingTime = {}
     for i in range(numberOfProcess):
         processName = str(chr(65 + i))
-        lastExecutionTime[processName] = i
+        if isPreemptive:
+            lastExecutionTime[processName] = i
+        else:
+            lastExecutionTime[processName] = 0
         #keep tracing how long does each process waits
         waitingTime[processName] = 0
 

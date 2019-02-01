@@ -16,13 +16,14 @@ isRandom = input("Enter y/Y to reandomly generat processes or other keys to cont
 
 theProcessPool = []
 
+
 #setting the parameters resulting from the users' choices
 if choiceOfAlgorithm == 4 or choiceOfAlgorithm == 5:
     requirePriority = True
 else:
     requirePriority = False
 if choiceOfAlgorithm == 6:
-    timeQuantum = int(input("Please spcify the time quantum"))
+    timeQuantum = int(input("Please spcify the time quantum\n"))
 
 
 #randomly generate those processes or colleting them from users
@@ -41,6 +42,12 @@ else:
         else:
             theProcessPool.append(Process(ProcessId, int(temp[0]), int(temp[1]), int(temp[2])))
 
+#set the flag to indicate wehter or not it is preemptive
+isPreemptive = True
+if choiceOfAlgorithm == 3 or choiceOfAlgorithm == 5:
+    isPreemptive = False    
+    for process in theProcessPool:
+        process.setArriveTime(0)
 
 #establish a dict for accesting the servicesses
 processPool = deepcopy(theProcessPool)
@@ -58,7 +65,7 @@ else:
 #dubug
 #executedRecord = services.Priority_Preemptive(theProcessPool)
 
-result = calculateBlocks(executedRecord,numberOfProcesses)
+result = calculateBlocks(executedRecord,numberOfProcesses,isPreemptive)
 
 showResult(processPool, executedRecord, result)
 

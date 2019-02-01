@@ -10,6 +10,9 @@ class Process():
         self.priority = priority
         self.arriveTime = arriveTime
 
+    def setArriveTime(self, time):
+        self.arriveTime = time
+
     def setPriority(self, nums):
         self.priority = nums
 
