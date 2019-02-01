@@ -41,6 +41,12 @@ class Process():
         stringBuilder += (" " + str(self.arriveTime) + " " + str(self.priority))
         return stringBuilder
 
+    def __eq__(self, other):
+        """Overrides the default implementation"""
+        if self.name == other.name:
+            return True
+        return False
+
 
 
 def generateProcesses(nums, needPrioiry, burstRange):
