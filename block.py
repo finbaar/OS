@@ -84,7 +84,7 @@ def showResult(processPool,record, result):
 
     print("\n\n----------------------------------")
 
-    print("         Name    BT  AT  priority ")
+    print("         Name   BT      AT  priority ")
     for item in processPool:
         print(item)
     print("----------------------------------")
@@ -103,6 +103,6 @@ def showResult(processPool,record, result):
     for process in waitingTimeDict.keys():
         print("The waiting time for " + process + " is " + str(waitingTimeDict[process]))
     
-    print("The average watiting time is " + str(averageTime))
+    print("\nThe average watiting time is " + str(averageTime))
 
     

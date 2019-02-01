@@ -37,8 +37,8 @@ class Process():
  
 
     def __str__(self):
-        stringBuilder = "Process " + self.name + " " + str(self.burstTime)
-        stringBuilder += (" " + str(self.arriveTime) + " " + str(self.priority))
+        stringBuilder = "Process    " + self.name + " \t" + str(self.burstTime)
+        stringBuilder += ("\t" + str(self.arriveTime) + "\t" + str(self.priority))
         return stringBuilder
 
     def __eq__(self, other):

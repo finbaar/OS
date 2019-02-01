@@ -60,5 +60,5 @@ else:
 
 result = calculateBlocks(executedRecord,numberOfProcesses)
 
-showResult(theProcessPool, executedRecord, result)
+showResult(processPool, executedRecord, result)
 
