@@ -11,11 +11,14 @@ def getPriority(ob):
     """sort the ready queue according to the priority"""
     return ob.getPriority()
 
+
+
+
 def FCFS(processPool):
     """a function that simulates the FCFS services
-       accept a processPool
- and return an exectution record
-       the exectution record is just like a Gantt Chart"""
+        accept a processPool
+        and return an exectution record
+        the exectution record is just like a Gantt Chart"""
     #count the current time
     timer = 0
 
@@ -30,9 +33,9 @@ def FCFS(processPool):
 
 def SJF_Preemptive(processPool):
     """a function that simulates the SJF services with preemptive
-       accept a processPool
- and return an exectution record
-       the exectution record is just like a Gantt Chart"""
+        accept a processPool
+        and return an exectution record
+        the exectution record is just like a Gantt Chart"""
     timer = 0
     executionRecord = []
 
@@ -56,13 +59,14 @@ def SJF_Preemptive(processPool):
         while readyQueue and readyQueue[0].getBurstTime() == 0:
             del readyQueue[0]
 
-    return mergeIdenticalBlock(executionRecord)
+    #return mergeIdenticalBlock(executionRecord)
+    return executionRecord
 
 
 def Priority_Preemptive(processPool):
     """a function that simulates the Priority services with preemptive
-    accept a processPool and return an exectution record
-    the exectution record is just like a Gantt Chart"""
+        accept a processPool and return an exectution record
+        the exectution record is just like a Gantt Chart"""
     timer = 0
     executionRecord = []
 
@@ -153,8 +157,8 @@ def SJF_Nonpreemptive(processPool):
 
 def Priority_Nonpreemptive(processPool):
     """a function that simulates the Priority services with nonpreemptive
-    accept a processPool and return an exectution record
-    the exectution record is just like a Gantt Chart"""
+        accept a processPool and return an exectution record
+        the exectution record is just like a Gantt Chart"""
     #same as SJF_Nonpreemptive but sort the queue using priority
     timer = 0
     executionRecord = []

@@ -1,6 +1,7 @@
 from process import Process
 import process
 import services
+from block import mergeIdenticalBlock
 
 
 #ask the users for the type of services
@@ -39,12 +40,3 @@ else:
         else:
             theProcessPool.append(Process(ProcessId, int(temp[0]), int(temp[1]), int(temp[2])))
 
-for item in theProcessPool:
-    print(item)
-
-print('----')
-record = services.RoundRobin(theProcessPool,4)
-for item in record:
-    print(item.process.getName(),end=' ')
-    print(item.startTime,end=' ')
-    print(item.endTime)
