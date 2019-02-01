@@ -120,10 +120,9 @@ def RoundRobin(processPool, timeQuantum):
         timer += actualBurstTime
         executionRecord.append(currentRecord)
 
-        while readyQueue and readyQueue[pointer].getBurstTime() == 0:
+        if readyQueue[pointer].getBurstTime() == 0:
             del readyQueue[pointer]
             queueSizeRemain = False
-            break
 
         #if the size changed, then current pointer will point to next process automaticlly
         if queueSizeRemain:
@@ -131,7 +130,7 @@ def RoundRobin(processPool, timeQuantum):
 
         #if pointer points the end, the go back to the start
         #there is an exception, that's the queue's size changed
-        if (pointer == len(readyQueue) and queueSizeRemain) or len(readyQueue) == 1:
+        if pointer == len(readyQueue):
             pointer = 0
 
     return executionRecord
