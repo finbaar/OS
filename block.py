@@ -93,8 +93,8 @@ def showResult(processPool,record, result):
     #print out the Gannt char
     for item in record:
         print("|",end = '')
-        print(item.startTime,end='--- ')
-        print(item.process.getName(),end=' ---')
+        print(item.startTime,end=' --- ')
+        print(item.process.getName(),end=' --- ')
         print(item.endTime,end='')
         print("|",end = '')
     
