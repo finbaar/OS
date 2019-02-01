@@ -1,7 +1,8 @@
 from process import Process
 import process
 import services
-from block import mergeIdenticalBlock
+from block import calculateBlocks, showResult
+from copy import deepcopy
 
 
 #ask the users for the type of services
@@ -39,4 +40,25 @@ else:
             theProcessPool.append(Process(ProcessId, int(temp[0]), int(temp[1])))
         else:
             theProcessPool.append(Process(ProcessId, int(temp[0]), int(temp[1]), int(temp[2])))
+
+
+#establish a dict for accesting the servicesses
+processPool = deepcopy(theProcessPool)
+askForServices = {1:services.FCFS,2:services.SJF_Preemptive}
+askForServices.update({3:services.SJF_Nonpreemptive})
+askForServices.update({4:services.Priority_Preemptive})
+askForServices.update({5:services.Priority_Nonpreemptive})
+askForServices.update({6:services.RoundRobin})
+
+#execute the process pool:
+if choiceOfAlgorithm != 6:
+    executedRecord = askForServices[choiceOfAlgorithm](theProcessPool)
+else:
+    executedRecord = askForServices[choiceOfAlgorithm](theProcessPool,timeQuantum)
+#dubug
+#executedRecord = services.Priority_Preemptive(theProcessPool)
+
+result = calculateBlocks(executedRecord,numberOfProcesses)
+
+showResult(theProcessPool, executedRecord, result)
 

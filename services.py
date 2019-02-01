@@ -59,8 +59,8 @@ def SJF_Preemptive(processPool):
         while readyQueue and readyQueue[0].getBurstTime() == 0:
             del readyQueue[0]
 
-    #return mergeIdenticalBlock(executionRecord)
-    return executionRecord
+    return mergeIdenticalBlock(executionRecord)
+    #return executionRecord
 
 
 def Priority_Preemptive(processPool):

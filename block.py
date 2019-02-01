@@ -53,12 +53,12 @@ def mergeIdenticalBlock(record):
 
 
 
-def calculateBlocks(record, numberOfBlocks):
+def calculateBlocks(record, numberOfProcess):
     """evalute the average time for the executed blocks"""
     #indicaing how long the interval is since exectued last time
     lastExecutionTime = {}
     waitingTime = {}
-    for i in range(numberOfBlocks):
+    for i in range(numberOfProcess):
         processName = str(chr(65 + i))
         lastExecutionTime[processName] = i
         #keep tracing how long does each process waits
@@ -71,7 +71,7 @@ def calculateBlocks(record, numberOfBlocks):
         #update the interval's start Time
         lastExecutionTime[cureentProcess] = block.getEndTime()
     
-    averageWaitingTime = sum(waitingTime.values()) / numberOfBlocks  
+    averageWaitingTime = sum(waitingTime.values()) / numberOfProcess  
     
     return (averageWaitingTime, waitingTime)
 
@@ -82,19 +82,24 @@ def showResult(processPool,record, result):
     averageTime = result[0]
     waitingTimeDict = result[1]
 
-    print("---------")
+    print("\n\n----------------------------------")
+
     print("         Name    BT  AT  priority ")
     for item in processPool:
         print(item)
-    print('----')
+    print("----------------------------------")
 
+    print("\nThe calculation is shown below\n\n")
     #print out the Gannt char
     for item in record:
-        print(item.startTime,end='|--- ')
+        print("|",end = '')
+        print(item.startTime,end='--- ')
         print(item.process.getName(),end=' ---')
-        print(item.endTime,end='|')
+        print(item.endTime,end='')
+        print("|",end = '')
     
     #print out the waiting time for each process
+    print('\n')
     for process in waitingTimeDict.keys():
         print("The waiting time for " + process + " is " + str(waitingTimeDict[process]))
     
